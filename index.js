@@ -15,12 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 initRoutes(app);
 
 /** For Production */
-db.sequelize.sync();
+/*db.sequelize.sync();*/
 
 /** For Development */
-/*db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   console.log("Drop and re-sync db.");
-});*/
+});
 
 /** Set port, listen for requests */
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

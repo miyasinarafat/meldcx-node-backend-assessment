@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const hasha = require('hasha');
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define("file", {
@@ -6,6 +6,9 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
         },
         filename: {
+            type: DataTypes.STRING,
+        },
+        path: {
             type: DataTypes.STRING,
         },
         publicKey: {
@@ -21,9 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         hooks: {
             beforeCreate: async (file) => {
                 if (file.filename && file.type) {
-                    const salt = await bcrypt.genSaltSync(10, 'a');
-                    file.publicKey = bcrypt.hashSync(file.type, salt);
-                    file.privateKey = bcrypt.hashSync(file.filename, salt);
+                    file.publicKey = hasha(file.type, {algorithm: 'sha256'});
+                    file.privateKey = hasha(file.filename, {algorithm: 'sha256'});
                 }
             },
         },

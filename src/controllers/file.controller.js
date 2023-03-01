@@ -1,21 +1,21 @@
-const fs = require("fs");
 const db = require("../models");
 
 const File = db.files;
 
-const uploadFiles = async (req, res) => {
+const upload = async (req, res) => {
     try {
         console.log(req.file);
 
         if (req.file === undefined) {
-            return res.send(`You must select a file.`);
+            return res.send({
+                error: 'You must select a file.',
+            });
         }
 
         File.create({
             type: req.file.mimetype,
             filename: req.file.originalname,
         }).then((file) => {
-
             return res.send({
                 data: {
                     filename: file.filename,
@@ -27,10 +27,13 @@ const uploadFiles = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.send(`Error when trying upload images: ${error}`);
+
+        return res.send({
+            error: `Error when trying upload file: ${error}`,
+        });
     }
 };
 
 module.exports = {
-    uploadFiles,
+    upload,
 };

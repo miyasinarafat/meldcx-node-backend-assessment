@@ -75,7 +75,42 @@ const download = async (req, res) => {
     }
 };
 
+const destroy = async (req, res) => {
+    try {
+        let privateKey = req.params.privateKey;
+
+        if (privateKey === undefined) {
+            return res.send({
+                error: 'You must provide privateKey to delete a file.',
+            });
+        }
+
+        const file = await File.findOne({ where: { privateKey : privateKey } });
+        const deleteFile = await File.destroy({ where: { privateKey : privateKey } });
+
+        if (deleteFile === 0) {
+            return res.send({
+                error: 'File not found!',
+            });
+        }
+
+        fs.unlinkSync(file.path);
+
+        return res.send({
+            message: 'File has been deleted.',
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        return res.send({
+            error: `Error when trying delete file: ${error}`,
+        });
+    }
+};
+
 module.exports = {
     upload,
     download,
+    destroy,
 };

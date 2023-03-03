@@ -66,6 +66,14 @@ const download = async (req, res) => {
             });
         });
 
+        /** Updating updated at column for file access tracking */
+        await db.sequelize.query(
+            'UPDATE files SET updatedAt = :updatedAt WHERE publicKey = :publicKey',
+            {
+                replacements: { publicKey: publicKey, updatedAt: new Date() },
+                type: db.Sequelize.QueryTypes.UPDATE
+            }
+        );
     } catch (error) {
         console.log(error);
 

@@ -1,18 +1,9 @@
-const dbConfig = require("../config/db.config.js");
+const dbConfig = require("../config/db.sqlite.config");
 const Sequelize = require("sequelize");
 
-const sequelize = new Sequelize(dbConfig.db, dbConfig.user, dbConfig.password, {
-    host: dbConfig.host,
-    port: dbConfig.port,
+const sequelize = new Sequelize('database', 'username', 'password', {
     dialect: dbConfig.dialect,
-    operatorsAliases: false,
-
-    pool: {
-        max: dbConfig.pool.max,
-        min: dbConfig.pool.min,
-        acquire: dbConfig.pool.acquire,
-        idle: dbConfig.pool.idle,
-    },
+    storage: dbConfig.storage,
 });
 
 const db = {};

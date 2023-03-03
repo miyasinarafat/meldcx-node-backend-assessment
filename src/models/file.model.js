@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
         hooks: {
             beforeCreate: async (file) => {
                 if (file.filename && file.type) {
-                    file.publicKey = hasha(file.type, {algorithm: 'sha256'});
-                    file.privateKey = hasha(file.filename, {algorithm: 'sha256'});
+                    file.publicKey = hasha(`${Date.now()}-meldcx-${file.type}`, {algorithm: 'sha256'});
+                    file.privateKey = hasha(`${Date.now()}-meldcx-${file.filename}`, {algorithm: 'sha256'});
                 }
             },
         },

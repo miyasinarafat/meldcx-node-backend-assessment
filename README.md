@@ -51,5 +51,5 @@ http://localhost:8000/
 ## NOTES
 - I would write and unit tests using [jest.js](https://jestjs.io/)
   - Integration tests using [mocha.js](https://mochajs.org/) and [chai.js](https://www.chaijs.com/)
-- I would add the gcp cloud storage using [multer](https://github.com/expressjs/multer) [custom storage engine](https://github.com/expressjs/multer/blob/master/StorageEngine.md) features or [multer-cloud-storage](https://www.npmjs.com/package/multer-cloud-storage).
+- I would add the gcp cloud storage using [multer](https://github.com/expressjs/multer) [custom storage engine](https://github.com/expressjs/multer/blob/master/StorageEngine.md) features or [multer-google-storage](https://www.npmjs.com/package/multer-google-storage).
 
